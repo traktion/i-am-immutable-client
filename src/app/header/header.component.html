@@ -1,0 +1,6 @@
+<!-- your navs bound to current route fragments -->
+<ul ngbNav [activeId]="route.fragment | async" class="nav-tabs">
+  <li [ngbNavItem]="link.fragment" *ngFor="let link of navigationService.navItems">
+    <a ngbNavLink [routerLink]="[link.url]" [fragment]="link.fragment">{{ link.title }}</a>
+  </li>
+</ul>

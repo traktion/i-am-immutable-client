@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.article h1 {
+  margin: 0 0 5px 0;
+  font-family: 'Quando', 'Times New Roman', serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: black;
+}
+
+.article h1 a {
+  color: black;
+}
+
+.article h1 a:hover {
+  text-decoration: none;
+}
+
+.article h2 {
+  margin: 35px 0 0 0;
+  font-family: 'Quando', 'Times New Roman', serif;
+  font-size: 30px;
+}
+
+.article h4 {
+  font-size: 16px;
+  margin: 0 0 15px 0;
+}
+
+.article p {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 22px;
+  margin: 35px 0 0 0;
+  line-height: 160%;
+  color: #333333;
+}
+
+.article {
+  width: 50em;
+}
+
+.divider {
+  border-top: 1px solid #dee2e6;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
