@@ -1,9 +1,11 @@
 export class Config {
   name: string;
-  mq: string;
+  urls: string[];
+  assets: string[];
 
-  constructor(name: string = '', mq: string = '') {
+  constructor(name: string = '', urls: string[], assets: string[]) {
     this.name = name;
-    this.mq = mq;
+    this.urls = urls;
+    this.assets = assets;
   }
 }

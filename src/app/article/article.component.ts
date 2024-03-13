@@ -48,6 +48,6 @@ export class ArticleComponent implements OnInit {
   }
 
   onReady(): void {
-    console.log('ready');
+    console.log('article ready');
   }
 }

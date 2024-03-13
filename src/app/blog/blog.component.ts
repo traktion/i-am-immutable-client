@@ -13,7 +13,9 @@ import {NavigationService} from '../navigation.service';
 })
 export class BlogComponent implements OnInit {
 
+  blogName: string;
   articleSafeUrls: string[];
+  blogSubscription: Subscription;
   articleSubscription: Subscription;
   listXor: string;
   articles: Message[];
@@ -23,7 +25,9 @@ export class BlogComponent implements OnInit {
               public blogService: BlogService,
               private markdownService: MarkdownService,
               private navigationService: NavigationService) {
+    this.blogName = 'IMIM';
     this.articleSafeUrls = [];
+    this.blogSubscription = new Subscription();
     this.articleSubscription = new Subscription();
     this.listXor = '';
     this.articles = [];
@@ -39,9 +43,11 @@ export class BlogComponent implements OnInit {
 
     this.navigationService.update(this.route.snapshot.paramMap.get('listXor') ?? '');
 
-    this.articleSubscription = this.blogService.getArticleDescriptors(this.listXor)
-    .subscribe(xorUrls => {
-      this.articleSafeUrls = JSON.parse(xorUrls);
+    this.blogSubscription = this.blogService.getConfig(this.listXor)
+    .subscribe(config => {
+      this.blogName = config.name;
+      console.log(this.blogName);
+      this.articleSafeUrls = config.urls;
       console.log(this.articleSafeUrls);
 
       for (const safeUrl of this.articleSafeUrls ) {
@@ -60,7 +66,7 @@ export class BlogComponent implements OnInit {
   }
 
   onReady(): void {
-    console.log('ready');
+    console.log('blog ready');
   }
 
 }

@@ -31,19 +31,17 @@ Once the articles have been written, they can be uploaded to the Safe Network us
 to upload any images linked to the article:
 
 ```
-$ safe files put "Safe Network Awakens.md"
-FilesContainer created at: "safe://hyryyrbj7y76gzi7tn4jihf5ygwirspbugynfkjqha13mk781kjpkq4c1aonra"
-+  Safe Network Awakens.md  safe://hy8oyeyq7ohh8r78s5jietuo4oecdfrkopy1ig8g798fi6ucgk14jzijm9w
+$ safe files upload "Safe Network Awakens.md" -p
+"Safe Network Awakens.md" 5caa08a4ed242440b8321d881121bf61cea4f734044781d8963c0eef6d3c5247
 
-$ safe files put "Clean, green, immutable dream.md" 
-FilesContainer created at: "safe://hyryyrbcqezdkruqx8xrbkpqz6ofafex7nud9kheuwztztqd61fustoa66enra"
-+  Clean, green, immutable dream.md  safe://hy8oyeyxz3xmxzjxwmpqp1pwb1upey5tz5pqngce3n81o1xdnwsxbr5srcy
+$ safe files upload "Clean, green, immutable dream.md" -p 
+"Clean, green, immutable dream.md" 926a4e83b45d4dac7f669bc6029abdce76065eb80dee23efcb5ab10554294c03
 
-$ safe files put 1_dH5Ce6neTHIfEkAbmsr1BQ.jpeg
+$ safe files put 1_dH5Ce6neTHIfEkAbmsr1BQ.jpeg -p
 FilesContainer created at: "safe://hyryyrbppafifr5apujw3kjaxyhje4jpgqwbnb3cgwrt6tc74hi4hu53gsynra"
 +  1_dH5Ce6neTHIfEkAbmsr1BQ.jpeg  safe://hygoygyq3eyyawhnjms9ziwaa1sadf5hnronymh3h3eiibapuxgt7tpjc3c
 ...
-$ safe files put 1_DOuipmOec4q8Neer_95qQA.jpeg
+$ safe files put 1_DOuipmOec4q8Neer_95qQA.jpeg -p
 FilesContainer created at: "safe://hyryyrbeg81nt9xrz81t4qot4zj47ydfckshkx166j9ojpfy8zpurcz3dzynra"
 +  1_DOuipmOec4q8Neer_95qQA.jpeg  safe://hygoygymhpekj9o3363pwgntybotaz8kp3kpfkndw3m4boqi9ty5uig91oc
 ```
@@ -51,18 +49,21 @@ FilesContainer created at: "safe://hyryyrbeg81nt9xrz81t4qot4zj47ydfckshkx166j9oj
 Create an index file, containing the list of Safe URLs created as above.
 
 ```
-echo "[
-  "safe://hy8oyeyq7ohh8r78s5jietuo4oecdfrkopy1ig8g798fi6ucgk14jzijm9w",
-  "safe://hy8oyeyxz3xmxzjxwmpqp1pwb1upey5tz5pqngce3n81o1xdnwsxbr5srcy"
-]" > i-am-immutable-index.json
+echo "{
+	"name": "Traktion Blog",
+	"urls": [
+		"safe://5caa08a4ed242440b8321d881121bf61cea4f734044781d8963c0eef6d3c5247",
+		"safe://926a4e83b45d4dac7f669bc6029abdce76065eb80dee23efcb5ab10554294c03"
+	],
+	"assets": []
+}" > imim-conf.json
 ```
 
 Upload this index to the network too:
 
 ```
-$ safe files put i-am-immutable-index.json 
-FilesContainer created at: "safe://hyryyrbxgb5ytmk5cpyr81apkogem7mbi7bm86uat8yiouc83xn45dc1bnhnra"
-+  i-am-immutable-index.json  safe://hyfey4yj17m73on3rsdwg7uqei4gf9egqma7yisoza8yg3daof1e5apw1pe
+$ safe files upload imim-conf.json -p
+"imim-conf.json" fb31a105d47179338dcad8fe76dd0cbffcc378543ad2464e856a282d5d325d6f
 ```
 
 It is recommended that an NRS URL is created to point to this index file. This prevents aggressive
@@ -81,22 +82,24 @@ If changes to an article are required, upload the new content, then replace the 
 new XOR URL.
 
 ```
-$ safe files put "Safe Network Awakens2.md"
-FilesContainer created at: "safe://hyryyrbmjcyck5szurqsjhdjtgf9gwq5zibj5uuypiix1rscmjexycqhdaonra"
-+  Safe Network Awakens2.md  safe://hy8oyeycicphox1fpx9wqjfrux1no3ktmswirb5q4raoqta8p75r9uexwhw
+$ safe files upload "Safe Network Awakens2.md" -p
+"Safe Network Awakens2.md" 1e14d2eac95faf5a2f09d84962ab773576d0e4c60ed6bcf91f51951010e14fed
 ```
 
 ```
-echo "[
-  "safe://hy8oyeycicphox1fpx9wqjfrux1no3ktmswirb5q4raoqta8p75r9uexwhw",
-  "safe://hy8oyeyxz3xmxzjxwmpqp1pwb1upey5tz5pqngce3n81o1xdnwsxbr5srcy"
-]" > i-am-immutable-index2.json
+echo "{
+	"name": "Traktion Blog",
+	"urls": [
+		"safe://1e14d2eac95faf5a2f09d84962ab773576d0e4c60ed6bcf91f51951010e14fed",
+		"safe://926a4e83b45d4dac7f669bc6029abdce76065eb80dee23efcb5ab10554294c03"
+	],
+	"assets": []
+}" > imim-conf2.json
 ```
 
 ```
-$ safe files put i-am-immutable-index2.json 
-FilesContainer created at: "safe://hyryyrbxzd3a4byap3phjbeq8cramruf8rh3ofcijop5qrejkxyxu3ezeywnra"
-+  i-am-immutable-index2.json  safe://hyfey4ymsjxbk585jr17bup89w1ydrdxfhht1u3ic4aguafs5shkcze5c6o
+$ safe files upload imim-conf2.json -p 
+"imim-conf2.json" 56a1dff0606d724b55f552c2b9972810dee4c102aebd975f640cb43d490b6f2e
 ```
 
 ```

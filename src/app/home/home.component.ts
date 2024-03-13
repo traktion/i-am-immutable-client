@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MessageDescriptor} from '../message-descriptor';
-import {BlogService} from '../blog.service';
-import {Observable, Subscription} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MarkdownService} from 'ngx-markdown';
-import {Message} from '../message';
-import {NavigationService} from '../navigation.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
