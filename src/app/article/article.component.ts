@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MarkdownService} from 'ngx-markdown';
 import {Subscription} from 'rxjs';
 import {NavigationService} from '../navigation.service';
+import {LocationStrategy} from '@angular/common';
 
 @Component({
   selector: 'app-article',
@@ -19,7 +20,8 @@ export class ArticleComponent implements OnInit {
               private router: Router,
               public blogService: BlogService,
               private markdownService: MarkdownService,
-              public navigationService: NavigationService
+              public navigationService: NavigationService,
+              private locationStrategy: LocationStrategy
   ) {
     this.message = '';
     this.messageSubscription = new Subscription();
@@ -41,7 +43,8 @@ export class ArticleComponent implements OnInit {
 
     this.messageSubscription = this.blogService.getArticle(xor).subscribe(val => {
       /*todo: handle double fragments on navigation links*/
-      this.message = this.blogService.formatMarkdownHeader1(val, this.navigationService.navItems[1].url + '#article');
+      const url = this.locationStrategy.getBaseHref() + this.navigationService.navItems[1].url + '#article';
+      this.message = this.blogService.formatMarkdownHeader1(val, url);
       this.message = this.blogService.formatMarkdownSafeUrls(this.message);
       console.log('raw: ' + this.message);
     });

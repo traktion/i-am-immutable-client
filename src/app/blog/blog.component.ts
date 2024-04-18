@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BlogService} from '../blog.service';
 import {MarkdownService} from 'ngx-markdown';
 import {NavigationService} from '../navigation.service';
+import {LocationStrategy} from '@angular/common';
 
 @Component({
   selector: 'app-blog',
@@ -14,7 +15,7 @@ import {NavigationService} from '../navigation.service';
 export class BlogComponent implements OnInit {
 
   blogName: string;
-  articleSafeUrls: string[];
+  articleUrls: string[];
   blogSubscription: Subscription;
   articleSubscription: Subscription;
   listXor: string;
@@ -24,9 +25,10 @@ export class BlogComponent implements OnInit {
               private router: Router,
               public blogService: BlogService,
               private markdownService: MarkdownService,
-              private navigationService: NavigationService) {
+              private navigationService: NavigationService,
+              private locationStrategy: LocationStrategy) {
     this.blogName = 'IMIM';
-    this.articleSafeUrls = [];
+    this.articleUrls = [];
     this.blogSubscription = new Subscription();
     this.articleSubscription = new Subscription();
     this.listXor = '';
@@ -43,17 +45,16 @@ export class BlogComponent implements OnInit {
 
     this.navigationService.update(this.route.snapshot.paramMap.get('listXor') ?? '');
 
-    this.blogSubscription = this.blogService.getConfig(this.listXor)
+    this.blogSubscription = this.blogService.getSnConfig(this.listXor)
     .subscribe(config => {
-      this.blogName = config.name;
+      this.blogName = config.imim.name;
       console.log(this.blogName);
-      this.articleSafeUrls = config.urls;
-      console.log(this.articleSafeUrls);
+      this.articleUrls = config.imim.articles;
+      console.log(this.articleUrls);
 
-      for (const safeUrl of this.articleSafeUrls ) {
-        const articleXor = safeUrl.substr(7);
+      for (const articleXor of this.articleUrls ) {
         this.articleSubscription = this.blogService.getArticle(articleXor).subscribe(articleContent => {
-          const articleUrl = this.navigationService.getArticleUrl(this.listXor, articleXor) + '#article';
+          const articleUrl = this.locationStrategy.getBaseHref() + this.navigationService.getArticleUrl(this.listXor, articleXor) + '#article';
           articleContent = this.blogService.formatMarkdownHeader1(
             articleContent,
             articleUrl

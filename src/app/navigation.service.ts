@@ -25,10 +25,10 @@ export class NavigationService {
   }
 
   getListUrl(listXor: string): string {
-    return '/blog/' + listXor;
+    return 'blog/' + listXor;
   }
 
   getArticleUrl(listXor: string, articleXor: string): string {
-    return '/blog/' + listXor + '/article/' + articleXor;
+    return 'blog/' + listXor + '/article/' + articleXor;
   }
 }
