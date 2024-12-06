@@ -28,6 +28,10 @@ import { BlogComponent } from './blog/blog.component';
     MarkdownModule.forRoot(),
     HttpClientModule
   ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -8,9 +8,10 @@ import {NavigationService} from '../navigation.service';
 import {LocationStrategy} from '@angular/common';
 
 @Component({
-  selector: 'app-blog',
-  templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
+    selector: 'app-blog',
+    templateUrl: './blog.component.html',
+    styleUrls: ['./blog.component.css'],
+    standalone: false
 })
 export class BlogComponent implements OnInit {
 
