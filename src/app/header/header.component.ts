@@ -7,8 +7,7 @@ import {NavigationService} from '../navigation.service';
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css'],
-    standalone: false
+    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
 

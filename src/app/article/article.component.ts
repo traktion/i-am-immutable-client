@@ -9,8 +9,7 @@ import {LocationStrategy} from '@angular/common';
 @Component({
     selector: 'app-article',
     templateUrl: './article.component.html',
-    styleUrls: ['./article.component.css'],
-    standalone: false
+    styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
   message: string;
