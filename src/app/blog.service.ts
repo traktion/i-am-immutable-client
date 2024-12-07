@@ -14,8 +14,8 @@ export class BlogService {
     private locationStrategy: LocationStrategy
   ) {}
 
-  getSnConfig(xor: string): Observable<SnConfig> {
-    return this.http.get<SnConfig>(`/safe/` + xor, { responseType: 'json'});
+  getSnConfig(): Observable<SnConfig> {
+    return this.http.get<SnConfig>(this.locationStrategy.getBaseHref() + 'app-config.json', { responseType: 'json'});
   }
 
   getArticle(xor: string): Observable<string> {

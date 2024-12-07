@@ -45,7 +45,7 @@ export class BlogComponent implements OnInit {
 
     this.navigationService.update(this.route.snapshot.paramMap.get('listXor') ?? '');
 
-    this.blogSubscription = this.blogService.getSnConfig(this.listXor)
+    this.blogSubscription = this.blogService.getSnConfig()
     .subscribe(config => {
       this.blogName = config.imim.name;
       console.log(this.blogName);
