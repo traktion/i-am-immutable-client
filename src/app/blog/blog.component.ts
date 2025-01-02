@@ -6,6 +6,8 @@ import {BlogService} from '../blog.service';
 import {MarkdownService} from 'ngx-markdown';
 import {NavigationService} from '../navigation.service';
 import {LocationStrategy} from '@angular/common';
+import {Listing} from '../listing';
+import {SnConfig} from '../sn-config';
 
 @Component({
     selector: 'app-blog',
@@ -15,7 +17,7 @@ import {LocationStrategy} from '@angular/common';
 export class BlogComponent implements OnInit {
 
   blogName: string;
-  articleUrls: string[];
+  articleUrls: Listing[];
   blogSubscription: Subscription;
   articleSubscription: Subscription;
   listXor: string;
@@ -47,14 +49,11 @@ export class BlogComponent implements OnInit {
 
     this.blogSubscription = this.blogService.getSnConfig(this.listXor)
     .subscribe(config => {
-      this.blogName = config.imim.name;
-      console.log(this.blogName);
-      this.articleUrls = config.imim.articles;
-      console.log(this.articleUrls);
+      this.articleUrls = config;;
 
       for (const articleXor of this.articleUrls ) {
-        this.articleSubscription = this.blogService.getArticle(this.listXor, articleXor).subscribe(articleContent => {
-          const articleUrl = this.locationStrategy.getBaseHref() + this.navigationService.getArticleUrl(this.listXor, articleXor) + '#article';
+        this.articleSubscription = this.blogService.getArticle(this.listXor, articleXor.name).subscribe(articleContent => {
+          const articleUrl = this.locationStrategy.getBaseHref() + this.navigationService.getArticleUrl(this.listXor, articleXor.name) + '#article';
           articleContent = this.blogService.formatMarkdownHeader1(
             articleContent,
             articleUrl

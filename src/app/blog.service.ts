@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {SnConfig} from './sn-config.js';
+import {Listing} from './listing';
 import {LocationStrategy} from '@angular/common';
 
 @Injectable({
@@ -14,8 +14,14 @@ export class BlogService {
     private locationStrategy: LocationStrategy
   ) {}
 
-  getSnConfig(listXor: string): Observable<SnConfig> {
-    return this.http.get<SnConfig>("/" + listXor + '/app-conf.json', { responseType: 'json'});
+  getSnConfig(listXor: string): Observable<Listing[]> {
+    return this.http.get<Listing[]>("/" + listXor + '/', { responseType: 'json'})
+      /* .pipe(
+         map((l: Listing) => {
+            return new Listing(l.name, l.type)
+         }
+        )
+      ); */
   }
 
   getArticle(listXor: string, articleXor: string): Observable<string> {
