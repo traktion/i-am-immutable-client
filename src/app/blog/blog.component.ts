@@ -45,7 +45,7 @@ export class BlogComponent implements OnInit {
 
     this.navigationService.update(this.route.snapshot.paramMap.get('listXor') ?? '');
 
-    this.blogSubscription = this.blogService.getSnConfig()
+    this.blogSubscription = this.blogService.getSnConfig(this.listXor)
     .subscribe(config => {
       this.blogName = config.imim.name;
       console.log(this.blogName);
@@ -53,7 +53,7 @@ export class BlogComponent implements OnInit {
       console.log(this.articleUrls);
 
       for (const articleXor of this.articleUrls ) {
-        this.articleSubscription = this.blogService.getArticle(articleXor).subscribe(articleContent => {
+        this.articleSubscription = this.blogService.getArticle(this.listXor, articleXor).subscribe(articleContent => {
           const articleUrl = this.locationStrategy.getBaseHref() + this.navigationService.getArticleUrl(this.listXor, articleXor) + '#article';
           articleContent = this.blogService.formatMarkdownHeader1(
             articleContent,

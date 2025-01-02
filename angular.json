@@ -65,7 +65,7 @@
           }
         },
         "serve": {
-          "builder": "ngx-build-plus:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "i-am-immutable-client:build",
             "proxyConfig": "src/proxy.conf.json"

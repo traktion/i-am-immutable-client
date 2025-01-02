@@ -29,21 +29,22 @@ export class ArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.markdownService.renderer.image = (href: string, title: string, text: string) => {
-      return '<img src="' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
-    };
-
     this.articleUrl = this.route.snapshot.url.join('/');
-    const xor = this.route.snapshot.paramMap.get('articleXor') ?? '';
+    const listXor = this.route.snapshot.paramMap.get('listXor') ?? '';
+    const articleXor = this.route.snapshot.paramMap.get('articleXor') ?? '';
+
+    this.markdownService.renderer.image = (href: string, title: string, text: string) => {
+      return '<img src="' + listXor + '/' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
+    };
 
     this.navigationService.update(
       this.route.snapshot.paramMap.get('listXor') ?? '',
       this.route.snapshot.paramMap.get('articleXor') ?? ''
     );
 
-    this.messageSubscription = this.blogService.getArticle(xor).subscribe(val => {
+    this.messageSubscription = this.blogService.getArticle(listXor, articleXor).subscribe(val => {
       /*todo: handle double fragments on navigation links*/
-      const url = this.locationStrategy.getBaseHref() + this.navigationService.navItems[1].url + '#article';
+      const url = this.locationStrategy.getBaseHref() + this.navigationService.navItems[1].url;
       this.message = this.blogService.formatMarkdownHeader1(val, url);
       this.message = this.blogService.formatMarkdownSafeUrls(this.message);
       console.log('raw: ' + this.message);

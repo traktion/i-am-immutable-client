@@ -14,16 +14,16 @@ export class BlogService {
     private locationStrategy: LocationStrategy
   ) {}
 
-  getSnConfig(): Observable<SnConfig> {
-    return this.http.get<SnConfig>(this.locationStrategy.getBaseHref() + 'app-config.json', { responseType: 'json'});
+  getSnConfig(listXor: string): Observable<SnConfig> {
+    return this.http.get<SnConfig>("/" + listXor + '/app-conf.json', { responseType: 'json'});
   }
 
-  getArticle(xor: string): Observable<string> {
-    return this.http.get(this.locationStrategy.getBaseHref() + xor, { responseType: 'text'});
+  getArticle(listXor: string, articleXor: string): Observable<string> {
+    return this.http.get("/" + listXor + "/" + articleXor, { responseType: 'text'});
   }
 
   formatMarkdownHeader1(document: string, articleUrl: string): string {
-    return document.replace(/(# )(.*)( #)/, '# [$2](' + articleUrl + ') #');
+    return document.replace(/(# )(.*)( #)/, '# $2 #');
   }
 
   formatMarkdownSafeUrls(document: string): string {
