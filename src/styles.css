@@ -11,10 +11,11 @@
 
 .article h1 a {
   color: black;
+  text-decoration: none;
 }
 
 .article h1 a:hover {
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .article h2 {
@@ -45,4 +46,12 @@
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.article a {
+  text-decoration: none;
+}
+
+.article a:hover {
+  text-decoration: underline;
 }

@@ -25,6 +25,7 @@
     "marked": "^12.0.2",
     "ngx-build-plus": "^18.0.0",
     "ngx-markdown": "^17.2.1",
+    "ngx-spinner": "^17.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.14.0"

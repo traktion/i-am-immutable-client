@@ -8,6 +8,7 @@ import {NavigationService} from '../navigation.service';
 import {LocationStrategy} from '@angular/common';
 import {Listing} from '../listing';
 import {SnConfig} from '../sn-config';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-blog',
@@ -28,7 +29,8 @@ export class BlogComponent implements OnInit {
               public blogService: BlogService,
               private markdownService: MarkdownService,
               private navigationService: NavigationService,
-              private locationStrategy: LocationStrategy) {
+              private locationStrategy: LocationStrategy,
+              private spinner: NgxSpinnerService) {
     this.blogName = 'IMIM';
     this.articleUrls = [];
     this.blogSubscription = new Subscription();
@@ -38,35 +40,56 @@ export class BlogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.spinner.show();
+
     this.listXor = this.route.snapshot.paramMap.get('listXor') ?? '';
-    console.log(this.listXor);
 
     this.markdownService.renderer.image = (href: string, title: string, text: string) => {
-      return '<img src="' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
+      if (href.endsWith(".mp4")) {
+        return '<video id="' + title + '" width="640" height="480" controls preload="metadata">'
+          + '<source src="/' + this.listXor + '/' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
+      } else {
+        return '<img src="/' + this.listXor + '/' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
+      }
     };
 
     this.navigationService.update(this.route.snapshot.paramMap.get('listXor') ?? '');
 
     this.blogSubscription = this.blogService.getSnConfig(this.listXor)
     .subscribe(config => {
-      this.articleUrls = config;;
+      this.articleUrls = config;
 
       for (const articleXor of this.articleUrls ) {
-        this.articleSubscription = this.blogService.getArticle(this.listXor, articleXor.name).subscribe(articleContent => {
-          const articleUrl = this.locationStrategy.getBaseHref() + this.navigationService.getArticleUrl(this.listXor, articleXor.name) + '#article';
-          articleContent = this.blogService.formatMarkdownHeader1(
-            articleContent,
-            articleUrl
-          );
-          articleContent = this.blogService.formatMarkdownSafeUrls(articleContent);
-          this.articles.push(new Message(articleUrl, articleContent));
-        });
+        if (this.isMarkdown(articleXor)) {
+          this.articleSubscription = this.blogService.getArticle(this.listXor, articleXor.name).subscribe(articleContent => {
+            const articleUrl = this.navigationService.getArticleUrl(this.listXor, articleXor.name.substring(articleXor.name.lastIndexOf('/') + 1));
+            const navArticleUrl = '/' + articleUrl;
+            const markdownArticleUrl = this.locationStrategy.getBaseHref() + articleUrl + '#article';
+            articleContent = this.blogService.formatMarkdownHeader1(
+              articleContent,
+              markdownArticleUrl
+            );
+            articleContent = this.blogService.formatMarkdownSafeUrls(articleContent);
+            this.articles.push(new Message(navArticleUrl, articleContent));
+          });
+        }
       }
+      this.spinner.hide();
     });
+
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 60000);
+  }
+
+  isMarkdown(listing: Listing): boolean {
+    return listing.name.endsWith(".md")
   }
 
   onReady(): void {
     console.log('blog ready');
+    this.spinner.hide();
   }
 
 }
