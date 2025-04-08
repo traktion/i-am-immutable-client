@@ -16,7 +16,7 @@ export class BlogService {
   ) {}
 
   getSnConfig(listXor: string): Observable<Listing[]> {
-    return this.http.get<Listing[]>("/" + listXor + '/', { responseType: 'json'})
+    return this.http.get<Listing[]>("http://" + listXor + '/', { responseType: 'json'})
       .pipe(
         map((items:Listing[]) => items.sort((a: Listing, b: Listing) => {
           if (a.mtime > b.mtime) {
@@ -30,7 +30,7 @@ export class BlogService {
   }
 
   getArticle(listXor: string, articleXor: string): Observable<string> {
-    return this.http.get("/" + listXor + "/" + articleXor, { responseType: 'text'});
+    return this.http.get("http://" + listXor + "/" + articleXor, { responseType: 'text'});
   }
 
   formatMarkdownHeader1(document: string, articleUrl: string): string {
@@ -39,6 +39,6 @@ export class BlogService {
 
   formatMarkdownSafeUrls(document: string): string {
     const url = this.locationStrategy.getBaseHref() + '$1$2';
-    return document.replace(/safe?:\/\/([-a-zA-Z0-9@:%._\\+~#=]{1,256})\b([-a-zA-Z0-9@:%_\\+.~#?&\/=]*)/g, url);
+    return document.replace(/ant?:\/\/([-a-zA-Z0-9@:%._\\+~#=]{1,256})\b([-a-zA-Z0-9@:%_\\+.~#?&\/=]*)/g, url);
   }
 }

@@ -34,7 +34,7 @@
             "scripts": [
               "node_modules/marked/lib/marked.esm.js"
             ],
-            "baseHref": "/imim/"
+            "baseHref": "/"
           },
           "configurations": {
             "production": {

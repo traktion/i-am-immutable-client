@@ -39,10 +39,13 @@ export class ArticleComponent implements OnInit {
 
     this.markdownService.renderer.image = (href: string, title: string, text: string) => {
       if (href.endsWith(".mp4")) {
-        return '<video id="' + title + '" width="640" height="480" controls preload="metadata">'
-          + '<source src="/' + listXor + '/' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
+        return '<video id="' + title + '" width="500" height="380" controls preload="metadata">'
+          + '<source src="http://' + listXor + '/' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
+      } else if (href.endsWith(".mp3")) {
+        return '<audio controls>'
+          + '<source src="http://' + listXor + '/' + href + '" type="audio/mp3">Your browser does not support the audio element.</audio>';
       } else {
-        return '<img src="/' + listXor + '/' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
+        return '<img src="http://' + listXor + '/' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
       }
     };
 

@@ -46,10 +46,13 @@ export class BlogComponent implements OnInit {
 
     this.markdownService.renderer.image = (href: string, title: string, text: string) => {
       if (href.endsWith(".mp4")) {
-        return '<video id="' + title + '" width="640" height="480" controls preload="metadata">'
-          + '<source src="/' + this.listXor + '/' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
+        return '<video id="' + title + '" width="500" height="380" controls preload="metadata">'
+          + '<source src="http://' + this.listXor + '/' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
+      } else if (href.endsWith(".mp3")) {
+        return '<audio controls>'
+          + '<source src="http://' + this.listXor + '/' + href + '" type="audio/mp3">Your browser does not support the audio element.</audio>';
       } else {
-        return '<img src="/' + this.listXor + '/' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
+        return '<img src="http://' + this.listXor + '/' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
       }
     };
 
