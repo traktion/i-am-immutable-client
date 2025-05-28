@@ -1,8 +1,2 @@
-{
-  "/dd5cdab4234b562c92c2bc2e22bf3544725137048f45b4accb7673b3660f8ae6/**": {
-    "target": "http://localhost:8082",
-    "pathRewrite": { "^/blog": "" },
-    "secure": false,
-    "logLevel": "debug"
-  }
-}
+/* No longer needed! Just go to proxy browser with dev URL: http://localhost:4200/blog/traktion-blog */
+{}

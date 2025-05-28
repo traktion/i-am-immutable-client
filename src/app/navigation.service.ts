@@ -12,6 +12,7 @@ export class NavigationService {
     this.navItems = [
       new NavItem('Home', 'home', '/blog/unknown'),
       new NavItem('Article', 'article', '/blog/unknown/article/unknown'),
+      new NavItem('Publish', 'publish', '/blog/unknown/publish'),
     ];
   }
 
@@ -22,6 +23,7 @@ export class NavigationService {
     } else {
       this.navItems[1].url = this.navItems[0].url;
     }
+    this.navItems[2].url = this.getPublishUrl(listXor);
   }
 
   getListUrl(listXor: string): string {
@@ -30,5 +32,9 @@ export class NavigationService {
 
   getArticleUrl(listXor: string, articleXor: string): string {
     return 'blog/' + listXor + '/article/' + articleXor;
+  }
+
+  getPublishUrl(listXor: string): string {
+    return 'blog/' + listXor + '/publish';
   }
 }
