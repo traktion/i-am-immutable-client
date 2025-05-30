@@ -36,8 +36,6 @@ import { PublishComponent } from './publish/publish.component';
                     gfm: true,
                     breaks: false,
                     pedantic: false,
-                    smartLists: true,
-                    smartypants: false,
                 },
             },
         }),

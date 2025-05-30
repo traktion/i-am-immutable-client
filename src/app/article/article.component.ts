@@ -10,7 +10,8 @@ import {NgxSpinnerService} from "ngx-spinner";
 @Component({
     selector: 'app-article',
     templateUrl: './article.component.html',
-    styleUrls: ['./article.component.css']
+    styleUrls: ['./article.component.css'],
+    standalone: false
 })
 export class ArticleComponent implements OnInit {
   message: string;
@@ -37,7 +38,7 @@ export class ArticleComponent implements OnInit {
     const listXor = this.route.snapshot.paramMap.get('listXor') ?? '';
     const articleXor = this.route.snapshot.paramMap.get('articleXor') ?? '';
 
-    this.markdownService.renderer.image = (href: string, title: string, text: string) => {
+    this.markdownService.renderer.image = ({href, title, text}) => {
       if (href.endsWith(".mp4")) {
         return '<video id="' + title + '" width="500" height="380" controls preload="metadata">'
           + '<source src="http://' + listXor + '/' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';

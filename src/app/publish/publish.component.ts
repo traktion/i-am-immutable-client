@@ -6,9 +6,10 @@ import { LocationStrategy } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-publish',
-  templateUrl: './publish.component.html',
-  styleUrls: ['./publish.component.css'],
+    selector: 'app-publish',
+    templateUrl: './publish.component.html',
+    styleUrls: ['./publish.component.css'],
+    standalone: false
 })
 export class PublishComponent implements OnInit {
   constructor(
