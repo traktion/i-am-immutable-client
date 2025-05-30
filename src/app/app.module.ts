@@ -9,44 +9,37 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArticleComponent } from './article/article.component';
 import { MarkdownModule, MARKED_OPTIONS } from 'ngx-markdown';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BlogComponent } from './blog/blog.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { PublishComponent } from './publish/publish.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    ArticleComponent,
-    BlogComponent,
-    PublishComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    NgbModule,
-    MarkdownModule.forRoot({
-      // loader: HttpClient, // optional, only if you use [src] attribute
-      markedOptions: {
-        provide: MARKED_OPTIONS,
-        useValue: {
-          gfm: true,
-          breaks: false,
-          pedantic: false,
-          smartLists: true,
-          smartypants: false,
-        },
-      },
-    }),
-    HttpClientModule,
-    NgxSpinnerModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HeaderComponent,
+        FooterComponent,
+        HomeComponent,
+        ArticleComponent,
+        BlogComponent,
+        PublishComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        NgbModule,
+        MarkdownModule.forRoot({
+            // loader: HttpClient, // optional, only if you use [src] attribute
+            markedOptions: {
+                provide: MARKED_OPTIONS,
+                useValue: {
+                    gfm: true,
+                    breaks: false,
+                    pedantic: false,
+                    smartLists: true,
+                    smartypants: false,
+                },
+            },
+        }),
+        NgxSpinnerModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
