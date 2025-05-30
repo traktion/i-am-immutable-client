@@ -11,7 +11,11 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/architect-cli": "^0.1902.14",
+    "@angular-devkit/schematics-cli": "^19.2.14",
     "@angular/animations": "~19.2.14",
+    "@angular/build": "^19.2.14",
+    "@angular/cli": "^19.2.14",
     "@angular/common": "~19.2.14",
     "@angular/compiler": "~19.2.14",
     "@angular/core": "~19.2.14",
@@ -30,12 +34,14 @@
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "^11.1.1",
+    "@angular-builders/custom-webpack": "^19.0.1",
     "@angular-devkit/build-angular": "^19.2.14",
     "@angular/compiler-cli": "~19.2.14",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "angular-eslint": "19.6.0",
     "codelyzer": "^6.0.0",
+    "eslint": "^9.27.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
@@ -43,7 +49,7 @@
     "karma-jasmine-html-reporter": "^1.6.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.32.1"
   }
 }

@@ -69,19 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "i-am-immutable-client:build",
-            "proxyConfig": "src/proxy.conf.json"
+            "buildTarget": "i-am-immutable-client:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "i-am-immutable-client:build:production"
+              "buildTarget": "i-am-immutable-client:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "i-am-immutable-client:build"
+            "buildTarget": "i-am-immutable-client:build"
           }
         },
         "test": {
@@ -130,5 +129,7 @@
       }
     }
   },
-  "defaultProject": "i-am-immutable-client"
+  "cli": {
+    "analytics": false
+  }
 }
