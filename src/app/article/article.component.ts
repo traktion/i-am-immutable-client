@@ -16,6 +16,8 @@ import {NgxSpinnerService} from "ngx-spinner";
 export class ArticleComponent implements OnInit {
   message: string;
   messageSubscription: Subscription;
+  listXor: string;
+  articleXor: string;
   articleUrl: string;
 
   constructor(private route: ActivatedRoute,
@@ -28,6 +30,7 @@ export class ArticleComponent implements OnInit {
   ) {
     this.message = '';
     this.messageSubscription = new Subscription();
+    this.listXor = '';
     this.articleUrl = '';
   }
 
@@ -35,18 +38,36 @@ export class ArticleComponent implements OnInit {
     this.spinner.show();
 
     this.articleUrl = this.route.snapshot.url.join('/');
-    const listXor = this.route.snapshot.paramMap.get('listXor') ?? '';
-    const articleXor = this.route.snapshot.paramMap.get('articleXor') ?? '';
+    this.listXor = this.route.snapshot.paramMap.get('listXor') ?? '';
+    this.articleXor = this.route.snapshot.paramMap.get('articleXor') ?? '';
 
-    this.markdownService.renderer.image = ({href, title, text}) => {
+    this.markdownService.renderer.link = ({href, title, text}) => {
+      console.log("render href: " + href);
       if (href.endsWith(".mp4")) {
         return '<video id="' + title + '" width="500" height="380" controls preload="metadata">'
-          + '<source src="http://' + listXor + '/' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
+          + '<source src="' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
       } else if (href.endsWith(".mp3")) {
         return '<audio controls>'
-          + '<source src="http://' + listXor + '/' + href + '" type="audio/mp3">Your browser does not support the audio element.</audio>';
+          + '<source src="'  + href + '" type="audio/mp3">Your browser does not support the audio element.</audio>';
+      } else if (href.startsWith("data:image")) {
+        return '<img class="img-fluid" src="' + href + '" title="' + title + '" alt="' + text + '">';
       } else {
-        return '<img src="http://' + listXor + '/' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
+        return '<a href="' + href + '">' + text + '</a>';
+      }
+    };
+
+    this.markdownService.renderer.image = ({href, title, text}) => {
+      console.log("render image: " + href);
+      if (href.endsWith(".mp4")) {
+        return '<video id="' + title + '" width="500" height="380" controls preload="metadata">'
+          + '<source src="http://' + this.listXor + '/' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
+      } else if (href.endsWith(".mp3")) {
+        return '<audio controls>'
+          + '<source src="http://' + this.listXor + '/' + href + '" type="audio/mp3">Your browser does not support the audio element.</audio>';
+      } else if (href.startsWith("data:image")) {
+        return '<img class="img-fluid" src="' + href + '" title="' + title + '" alt="' + text + '">';
+      } else {
+        return '<img class="img-fluid" src="http://' + this.listXor + '/' + href + '" title="' + title + '" alt="' + text + '">';
       }
     };
 
@@ -55,7 +76,7 @@ export class ArticleComponent implements OnInit {
       this.route.snapshot.paramMap.get('articleXor') ?? ''
     );
 
-    this.messageSubscription = this.blogService.getArticle(listXor, articleXor).subscribe(val => {
+    this.messageSubscription = this.blogService.getArticle(this.listXor, this.articleXor).subscribe(val => {
       /*todo: handle double fragments on navigation links*/
       const url = this.locationStrategy.getBaseHref() + this.navigationService.navItems[1].url;
       this.message = this.blogService.formatMarkdownHeader1(val, url);

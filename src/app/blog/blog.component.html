@@ -1,6 +1,9 @@
 <div class="container article" *ngFor="let item of articles">
-  <markdown class="article" [data]="item.getSummary()" (ready)="onReady()"></markdown>
-  <br>
+  <div class="article_summary">
+    <markdown class="article" [data]="item.content" (ready)="onReady()"></markdown>
+    <div class="fade"></div>
+  </div>
+  <br/>
   <a [routerLink]="[item.url]" [fragment]="'article'">Read the full article...</a>
   <hr class="divider">
 </div>

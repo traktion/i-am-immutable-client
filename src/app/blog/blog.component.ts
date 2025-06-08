@@ -45,15 +45,33 @@ export class BlogComponent implements OnInit {
 
     this.listXor = this.route.snapshot.paramMap.get('listXor') ?? '';
 
+    this.markdownService.renderer.link = ({href, title, text}) => {
+          console.log("render href: " + href);
+          if (href.endsWith(".mp4")) {
+            return '<video id="' + title + '" width="500" height="380" controls preload="metadata">'
+              + '<source src="' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
+          } else if (href.endsWith(".mp3")) {
+            return '<audio controls>'
+              + '<source src="'  + href + '" type="audio/mp3">Your browser does not support the audio element.</audio>';
+          } else if (href.startsWith("data:image")) {
+            return '<img class="img-fluid" src="' + href + '" title="' + title + '" alt="' + text + '">';
+          } else {
+            return '<a href="' + href + '">' + text + '</a>';
+          }
+        };
+
     this.markdownService.renderer.image = ({href, title, text}) => {
+      console.log("render link: " + href);
       if (href.endsWith(".mp4")) {
         return '<video id="' + title + '" width="500" height="380" controls preload="metadata">'
           + '<source src="http://' + this.listXor + '/' + href + '" type="video/mp4">Your browser does not support the video tag.</video>';
       } else if (href.endsWith(".mp3")) {
         return '<audio controls>'
           + '<source src="http://' + this.listXor + '/' + href + '" type="audio/mp3">Your browser does not support the audio element.</audio>';
+      } else if (href.startsWith("data:image")) {
+        return '<img class="img-fluid" src="' + href + '" title="' + title + '" alt="' + text + '">';
       } else {
-        return '<img src="http://' + this.listXor + '/' + href + '" title="' + title + '" alt=' + text + ' class="img-fluid">';
+        return '<img class="img-fluid" src="http://' + this.listXor + '/' + href + '" title="' + title + '" alt="' + text + '">';
       }
     };
 

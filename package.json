@@ -26,11 +26,16 @@
     "@angular/router": "~19.2.14",
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "bootstrap": "^5.3.3",
+    "highlight.js": "^11.11.1",
     "marked": "^15.0.12",
     "ngx-build-plus": "^19.0.0",
     "ngx-markdown": "^19.1.1",
+    "ngx-quill": "^27.1.2",
     "ngx-spinner": "^17.0.0",
-    "rxjs": "~6.6.0",
+    "quill": "^2.0.3",
+    "quilljs-markdown": "^1.2.0",
+    "rxjs": "^7.8.2",
+    "turndown": "^7.2.0",
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
