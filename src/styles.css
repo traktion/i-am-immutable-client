@@ -7,6 +7,7 @@
   font-size: 36px;
   font-weight: bold;
   color: black;
+  overflow-wrap: break-word;
 }
 
 .article h1 a {
@@ -22,11 +23,13 @@
   margin: 35px 0 0 0;
   font-family: 'Quando', 'Times New Roman', serif;
   font-size: 30px;
+  overflow-wrap: break-word;
 }
 
 .article h4 {
   font-size: 16px;
   margin: 0 0 15px 0;
+  overflow-wrap: break-word;
 }
 
 .article p {
@@ -35,6 +38,43 @@
   margin: 35px 0 0 0;
   line-height: 160%;
   color: #333333;
+  overflow-wrap: break-word;
+}
+
+.article ol li {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 22px;
+  color: #333333;
+  overflow-wrap: break-word;
+}
+
+.article ul li {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 22px;
+  color: #333333;
+  overflow-wrap: break-word;
+}
+
+.article blockquote {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 22px;
+  padding: 10px;
+  color: #333333;
+  border: 3px #333333;
+  background-color: #f2f2f2;
+  border-style: none none none groove;
+  margin: 10px 10px 1px 1px;
+  overflow-wrap: break-word;
+}
+
+.article blockquote p {
+  margin: 0px;
+  overflow-wrap: break-word;
+}
+
+.article .editor div {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 22px;
 }
 
 .article {
@@ -72,6 +112,28 @@
   text-align: left;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.formElement label {
+  width: 8em;
+}
+
+.formElement input[type=text] {
+  min-width: 40em;
+  max-width: 50em;
+}
+
+.formElement select {
+  max-width: 40em;
+}
+
+.formElement .editor {
+  height: 30em;
+}
+
+.formElement input[type=submit] {
+  float: right;
+  width: 15%;
 }
 
 .article a {

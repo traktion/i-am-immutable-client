@@ -2,25 +2,25 @@
 
   <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
     <div class="formElement">
-      <label for="targetBlog">How to publish?</label>
+      <label for="targetBlog">Publish To:</label>
       <select id="targetBlog" [formControl]="targetBlogControl">
-        <option value="existingBlog" selected="selected">Publish to this blog ({{listXor}})</option>
+        <option value="existingBlog">Publish to this blog ({{listXor}})</option>
         <option value="newBlog">Publish to a new blog</option>
       </select>
     </div>
 
     <div class="formElement">
-      <label for="blogName">Blog name</label>
+      <label for="blogName">Blog Name:</label>
       <input type="text" id="blogName" [formControl]="blogNameControl">
     </div>
 
     <div class="formElement">
-      <label for="articleName">Article name</label>
+      <label for="articleName">Article Name:</label>
       <input type="text" id="articleName" [formControl]="articleNameControl">
     </div>
 
     <div class="formElement">
-      <quill-editor formControlName="html" format="html"></quill-editor>
+      <quill-editor class="editor" formControlName="html" format="html"></quill-editor>
     </div>
     <div class="formElement">
       <input id="save" type="submit" [formControl]="saveControl">

@@ -25,10 +25,10 @@ Quill.register(Block, true);
 export class PublishComponent implements OnInit {
   placeholder: string;
   content: string;
-  saveControl = new FormControl('Save');
-  targetBlogControl = new FormControl('TargetBlog');
-  blogNameControl = new FormControl('BlogName');
-  articleNameControl = new FormControl('ArticleName');
+  saveControl = new FormControl('Publish');
+  targetBlogControl = new FormControl('');
+  blogNameControl = new FormControl('');
+  articleNameControl = new FormControl('');
   articleForm = new FormGroup({
     save: this.saveControl,
     html: new FormControl('<h1>Replace With Article Heading</h1><br/><p>Replace with article content.</p>'),
@@ -41,6 +41,7 @@ export class PublishComponent implements OnInit {
   pointerAddress: string;
   registerAddress: string;
   listXor: string;
+  isSubmitting: boolean;
 
   articleMarkdown: string;
   targetBlog: string;
@@ -72,6 +73,8 @@ export class PublishComponent implements OnInit {
 
   onSubmit() {
     console.warn("form submit: " + this.articleForm.get('html').value);
+    if (this.isSubmitting) {return; }
+    this.isSubmitting = true;
     this.articleMarkdown = new TurndownService({ headingStyle: 'atx' }).turndown(this.articleForm.get('html').value);
     console.warn("form markdown: " + this.articleMarkdown);
 
@@ -131,6 +134,8 @@ export class PublishComponent implements OnInit {
               } else if (result.status == 'succeeded') {
                 console.log("upload succeeded - creating pointer blog name [" + this.blogName + "], address [" + result.address + "]");
                 this.blogService.createPointer(this.blogName, result.address).subscribe(pointer => this.pointerAddress = pointer.address);
+              } else if (result.status == 'failed') {
+                this.isSubmitting = false;
               }
             });
           });
@@ -152,6 +157,8 @@ export class PublishComponent implements OnInit {
               if (result.status == 'succeeded') {
                 console.log("upload succeeded - creating pointer blog name [" + this.blogName + "], address [" + result.address + "]");
                 this.blogService.createPointer(this.blogName, result.address).subscribe(pointer => this.pointerAddress = pointer.address);
+              } else if (result.status == 'failed') {
+                this.isSubmitting = false;
               }
             });
           });

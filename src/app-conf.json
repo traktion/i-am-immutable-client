@@ -1,0 +1,11 @@
+{
+  "imim": {
+    "name": "IMIM Blog",
+    "articles": []
+  },
+  "routeMap": {
+    "": "index.html",
+    "blog/*": "index.html",
+    "blog/*/**": "index.html"
+  }
+}
